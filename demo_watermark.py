@@ -21,7 +21,7 @@ from pprint import pprint
 from functools import partial
 
 import numpy # for gradio hot reload
-import gradio as gr
+# import gradio as gr
 
 import torch
 
@@ -323,7 +323,7 @@ def detect(input_text, args, device=None, tokenizer=None):
         output += [["",""] for _ in range(6)]
     return output, args
 
-def run_gradio(args, model=None, device=None, tokenizer=None):
+def run_gradio_disabled(args, model=None, device=None, tokenizer=None):
     """Define and launch the gradio demo interface"""
     generate_partial = partial(generate, model=model, device=device, tokenizer=tokenizer)
     detect_partial = partial(detect, device=device, tokenizer=tokenizer)
@@ -607,12 +607,12 @@ def run_gradio(args, model=None, device=None, tokenizer=None):
 
 
     demo.queue(concurrency_count=3)
-
+"""
     if args.demo_public:
         demo.launch(share=True) # exposes app to the internet via randomly generated link
     else:
         demo.launch()
-
+"""
 def main(args): 
     """Run a command line version of the generation and detection operations
         and optionally launch and serve the gradio demo"""
@@ -690,7 +690,8 @@ def main(args):
 
     # Launch the app to generate and detect interactively (implements the hf space demo)
     if args.run_gradio:
-        run_gradio(args, model=model, tokenizer=tokenizer, device=device)
+        pass
+        # run_gradio(args, model=model, tokenizer=tokenizer, device=device)
 
     return
 
